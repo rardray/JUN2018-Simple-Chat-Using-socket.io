@@ -15,12 +15,7 @@ class Chat extends Component {
         })
         const addMessage = (data) => this.setState( {messages: data})
     }
-    handleError = (error) => {
-        this.setState({notice: error})
-        this.renderError()
-        console.log(this.state)
 
-    }
     componentWillMount() {
         fetch('http://localhost:8080/messages')
         .then(res => res.json())
@@ -33,11 +28,8 @@ class Chat extends Component {
         headers: { "Content-type": "application/json; charset=UTF-8" }
     })
     .then(()=> this.socket.emit('SEND_MESSAGE'))
-    .catch(err => this.handleError(err.response))
+    .catch(err => err)
 }
-    renderError() {
-        alert(this.state.notice)
-    }
     render() {
         return (
         <div className = 'containter'>

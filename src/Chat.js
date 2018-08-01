@@ -1,37 +1,42 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client'
+import Input from './Input'
+
 class Chat extends Component {
     constructor(props) {
         super(props)
-        this.state ={username: '', message: '', messages: []}
+        this.state ={messages: [], notice: ''}
         this.socket = io('localhost:8080')
         this.socket.on('RECEIVE_MESSAGE', function(data) {
-            addMessage(data)
-        })
-        const addMessage= data => {
-            console.log(data)
-            this.setState(prevState => {
-                return {messages: [...prevState.messages, data]}
+            fetch('http://localhost:8080/messages', {
             })
-        }
-    }
-    
-    handleChange = (e) => {
-        const target = e.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]:  value
+            .then(res => res.json())
+            .then(messages => addMessage(messages))
         })
+        const addMessage = (data) => this.setState( {messages: data})
     }
+    handleError = (error) => {
+        this.setState({notice: error})
+        this.renderError()
+        console.log(this.state)
 
-    handleSubmit = e => {
-        e.preventDefault()
-        this.socket.emit('SEND_MESSAGE',{
-            author: this.state.username,
-            message: this.state.message
-        })
-        this.setState({message: ''})
+    }
+    componentWillMount() {
+        fetch('http://localhost:8080/messages')
+        .then(res => res.json())
+        .then(messages => this.setState({messages: messages}))
+    }
+    handleComment = (value, value2 ) => {
+    fetch('http://localhost:8080/messages/add', {
+        method: 'POST',
+        body: JSON.stringify({author: value, message: value2}),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+    })
+    .then(()=> this.socket.emit('SEND_MESSAGE'))
+    .catch(err => this.handleError(err.response))
+}
+    renderError() {
+        alert(this.state.notice)
     }
     render() {
         return (
@@ -50,13 +55,7 @@ class Chat extends Component {
         })}
                                     </div>
                                 </div>
-                                <div className = 'card-footer'>
-                                    <input name = 'username' type = 'text' placeholder = 'Username' className= 'form-control' value = {this.state.username} onChange = {(e) => this.setState({username: e.target.value})}/>
-                                    <br/>
-                                    <input name = 'message' value = {this.state.message} onChange = {this.handleChange} type = 'text' placeholder = 'message' className = 'form-control'/>
-                                    <br/>
-                                    <button onClick = {this.handleSubmit.bind(this)} className = 'btn btn-primary form-control'>Send</button>
-                                </div>
+                               <Input handleComment = {this.handleComment} />
                             </div>
                         </div>
                     </div>

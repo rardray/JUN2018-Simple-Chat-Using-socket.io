@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client'
 import Input from './Input'
+import Conversation from './Conversation'
 
 class Chat extends Component {
     constructor(props) {
@@ -8,18 +9,21 @@ class Chat extends Component {
         this.state ={messages: [], notice: ''}
         this.socket = io('localhost:8080')
         this.socket.on('RECEIVE_MESSAGE', function(data) {
-            fetch('http://localhost:8080/messages', {
-            })
-            .then(res => res.json())
-            .then(messages => addMessage(messages))
+           getData(addMessage)
         })
-        const addMessage = (data) => this.setState( {messages: data})
+        const getData = this.getData
+        const addMessage = this.addMessage
     }
-
-    componentWillMount() {
+    getData = (callback ) => {
         fetch('http://localhost:8080/messages')
         .then(res => res.json())
-        .then(messages => this.setState({messages: messages}))
+        .then(messages => callback(messages))
+    }
+    addMessage = (data) => {
+        this.setState( { messages: data } )
+    }
+    componentWillMount() {
+        this.getData(this.addMessage)
     }
     handleComment = (value, value2 ) => {
     fetch('http://localhost:8080/messages/add', {
@@ -42,7 +46,7 @@ class Chat extends Component {
                                     <div className = 'messages'>
                                     {this.state.messages.map(el => {
             return (
-                <div>{el.author}: {el.message} </div>
+                <Conversation value = {el.author} value2 = {el.message} value3 = {el.author.charAt(0)}id = {el._id}/>
             )
         })}
                                     </div>

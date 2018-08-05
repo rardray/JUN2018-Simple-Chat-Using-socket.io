@@ -27,12 +27,24 @@ class Input extends Component {
     render() {
         return (
             <div className = 'card-footer'>
-            <input name = 'author' type = 'text' placeholder = 'author' className= 'form-control' value = {this.state.author} onChange = {this.handleChange}/>
-            <br/>
-            <input name = 'message' value = {this.state.message} onChange = {this.handleChange} type = 'text' placeholder = 'message' className = 'form-control'/>
-            <br/>
-            <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Send</button>
-        </div>
+                <input 
+                    name = 'author' 
+                    type = 'text' 
+                    placeholder = 'author' 
+                    className= 'form-control' 
+                    value = {this.state.author} 
+                    onChange = {this.handleChange}/>
+                    <br/>
+                <input 
+                    name = 'message' 
+                    value = {this.state.message} 
+                    onChange = {this.handleChange} 
+                    type = 'text' 
+                    placeholder = 'message' 
+                    className = 'form-control'/>
+                    <br/>
+                <button onClick = {this.handleSubmit} className = 'btn btn-primary form-control'>Send</button>
+            </div>
         )
     }
 }

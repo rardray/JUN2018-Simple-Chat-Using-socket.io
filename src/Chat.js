@@ -25,7 +25,7 @@ class Chat extends Component {
     componentWillMount() {
         this.getData(this.addMessage)
     }
-    handleComment = (value, value2 ) => {
+    handleComment = ( value, value2 ) => {
     fetch('http://localhost:8080/messages/add', {
         method: 'POST',
         body: JSON.stringify({author: value, message: value2}),
@@ -46,7 +46,11 @@ class Chat extends Component {
                                     <div className = 'messages'>
                                     {this.state.messages.map(el => {
             return (
-                <Conversation value = {el.author} value2 = {el.message} value3 = {el.author.charAt(0)}id = {el._id}/>
+                <Conversation 
+                    value = {el.author} 
+                    value2 = {el.message} 
+                    value3 = {el.author.charAt(0)}
+                    id = {el._id}/>
             )
         })}
                                     </div>

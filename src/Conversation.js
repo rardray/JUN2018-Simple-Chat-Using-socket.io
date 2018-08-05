@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
-import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-
+import {Colors} from './actions'
 import Avatar from '@material-ui/core/Avatar';
 
 import red from '@material-ui/core/colors/red';
@@ -32,7 +30,6 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
   },
 });
 
@@ -47,7 +44,7 @@ class Conversation extends React.Component {
       <div key = {id}>
           <CardHeader
             avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar}>
+              <Avatar aria-label="Recipe" className={classes.avatar} style = {{backgroundColor: Colors(value3)}}>
               {value3}
               </Avatar>
             }

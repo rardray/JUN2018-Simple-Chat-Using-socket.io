@@ -6,7 +6,7 @@ import Conversation from './Conversation'
 class Chat extends Component {
     constructor(props) {
         super(props)
-        this.state ={messages: [], notice: ''}
+        this.state ={ messages: [], notice: '' }
         this.socket = io('localhost:8080')
         this.socket.on('RECEIVE_MESSAGE', function(data) {
            getData(addMessage)
@@ -14,7 +14,7 @@ class Chat extends Component {
         const getData = this.getData
         const addMessage = this.addMessage
     }
-    getData = (callback ) => {
+    getData = ( callback ) => {
         fetch('http://localhost:8080/messages')
         .then(res => res.json())
         .then(messages => callback(messages))

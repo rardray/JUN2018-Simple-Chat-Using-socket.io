@@ -4,7 +4,9 @@ var mongoose = require("mongoose");
 var app = express();
 var socket = require("socket.io");
 
-mongoose.connect(process.env.MONGOLAB_SOCK);
+mongoose.connect(
+  "mongodb://rardray:Dominion1234@ds049624.mlab.com:49624/socket-serv"
+);
 var db = mongoose.connection;
 db.on("error", function(msg) {
   console.log("Mongoose: Unable to connect ot database");

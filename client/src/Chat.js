@@ -3,11 +3,13 @@ import io from "socket.io-client";
 import Input from "./Input";
 import Conversation from "./Conversation";
 
+const PORT = process.env.PORT || 3001;
+
 class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = { messages: [], notice: "" };
-    this.socket = io.connect();
+    this.socket = io("http://localhost:" + PORT);
     this.socket.on("RECEIVE_MESSAGE", function(data) {
       getData(addMessage);
     });

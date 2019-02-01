@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json({ extended: true }));
 
-const PORT = process.env.PORT || 3001;
+export const PORT = process.env.PORT || 3001;
 const INDEX = path.join(__dirname, "client/build/index.html");
 
 app.use("/messages", messagesRouter);

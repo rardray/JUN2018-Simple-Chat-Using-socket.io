@@ -12,7 +12,6 @@ var io = require("socket.io").listen(app.listen(process.env.PORT || 3006));
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
-app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

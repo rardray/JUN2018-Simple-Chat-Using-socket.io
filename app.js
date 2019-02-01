@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, "index.html");
+const INDEX = path.join(__dirname, "client/src/Chat.js");
 
 app.use("/messages", messagesRouter);
 app.use(express.static(path.join(__dirname, "client/build")));

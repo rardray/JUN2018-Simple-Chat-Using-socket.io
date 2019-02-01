@@ -19,6 +19,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json({ extended: true }));
 
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, "index.html");
+
 app.use("/messages", messagesRouter);
 app.use(express.static(path.join(__dirname, "client/build")));
 // catch 404 and forward to error handler

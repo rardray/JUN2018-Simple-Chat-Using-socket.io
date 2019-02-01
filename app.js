@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 var indexRouter = require("./routes/index");
 var messagesRouter = require("./routes/messages");
 var app = express();
-var io = require("socket.io").listen(app.listen(3006));
+var io = require("socket.io").listen(app.listen(process.env.PORT || 3006));
 var cors = require("cors");
 
 // view engine setup

@@ -7,7 +7,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = { messages: [], notice: "" };
-    this.socket = io("localhost:3006");
+    this.socket = io("http://localhost:3006");
     this.socket.on("RECEIVE_MESSAGE", function(data) {
       getData(addMessage);
     });

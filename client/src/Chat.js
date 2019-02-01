@@ -7,7 +7,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = { messages: [], notice: "" };
-    this.socket = io("http://localhost:3006");
+    this.socket = io("localhost:3006");
     this.socket.on("RECEIVE_MESSAGE", function(data) {
       getData(addMessage);
     });
@@ -15,7 +15,7 @@ class Chat extends Component {
     const addMessage = this.addMessage;
   }
   getData = callback => {
-    fetch("http://localhost:3006/messages")
+    fetch("/messages")
       .then(res => res.json())
       .then(messages => callback(messages));
   };
@@ -26,7 +26,7 @@ class Chat extends Component {
     this.getData(this.addMessage);
   }
   handleComment = (value, value2) => {
-    fetch("http://localhost:3006/messages/add", {
+    fetch("/messages/add", {
       method: "POST",
       body: JSON.stringify({ author: value, message: value2 }),
       headers: { "Content-type": "application/json; charset=UTF-8" }

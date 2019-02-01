@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 var indexRouter = require("./routes/index");
 var messagesRouter = require("./routes/messages");
 var app = express();
-var socketIO = require("socket.io");
+var io = require("socket.io")();
 
 // view engine setup
 app.use(logger("dev"));
@@ -40,17 +40,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-const server = app
-  .use((req, res) => res.sendFile(INDEX))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-io = socketIO(server);
+const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+io.listen(server);
 
 io.on("connection", socket => {
   console.log(socket.id);
 
   socket.on("SEND_MESSAGE", function(data) {
-    io.emit("RECEIVE_MESSAGE", data);
+    socket.emit("RECEIVE_MESSAGE", data);
   });
 });
 module.exports = app;
